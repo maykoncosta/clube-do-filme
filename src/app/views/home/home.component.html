@@ -1,0 +1,22 @@
+<!-- <app-header></app-header> -->
+<div class="home-container">
+  <div class="hero-section">
+    <h1>CLUBE DO <br> FILME</h1>
+    <h2>Bem-vindo{{ displayName ? ', ' + displayName : '' }}!</h2>
+    <p>Descubra filmes incríveis com seus amigos!</p>
+    <div class="buttons">
+      <button class="btn btn-primary" (click)="navigateToCreateGroup()">Criar Grupo</button>
+      <button class="btn btn-secondary" (click)="navigateToLogin()">Entrar</button>
+    </div>
+  </div>
+
+  <div class="recommendations">
+    <h1>Tendências</h1>
+    <div class="movie-grid">
+      <div class="movie-card" *ngFor="let movie of movies">
+        <img [src]="movie.image" [alt]="movie.title">
+        <p>{{ movie.title }}</p>
+      </div>
+    </div>
+  </div>
+</div>

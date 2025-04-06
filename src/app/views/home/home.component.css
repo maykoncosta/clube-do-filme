@@ -1,0 +1,127 @@
+/* Certifique-se de que o html e body tenham altura de 100% */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Estilo do contêiner com a imagem de fundo */
+.home-container {
+    text-align: center;
+    color: #333;
+    background: url('/assets/images/background_gb.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;  /* Mantém a imagem fixa */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: -1;
+}
+
+/* Seção hero */
+.hero-section {
+    height: 100vh;  /* Garante que ocupe toda a altura da tela */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Títulos e texto da hero */
+.hero-section h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff; 
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+}
+
+.hero-section p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #f1f1f1;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Botões */
+.buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 30px;
+}
+
+/* Cores dos botões */
+.btn-primary {
+    background-color: #ff4500;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #333;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+/* Recomendações */
+.recommendations {
+    margin-top: 50px;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Cards de filmes */
+.movie-card {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.movie-card img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.movie-card p {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: normal;
+    text-align: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-section p {
+        font-size: 1.2rem;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}

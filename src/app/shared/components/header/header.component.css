@@ -1,0 +1,24 @@
+.header {
+    background-color: transparent;
+    /* Torna a header transparente */
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Sombra suave para destacar */
+    position: fixed;
+    /* Para que a header fique fixa no topo */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    /* Para garantir que a header fique acima de outros elementos */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    font-size: larger;
+    font-family: "Aclonica", serif;
+    font-weight: 400;
+    font-style: normal;
+}
