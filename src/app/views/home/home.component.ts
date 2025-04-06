@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { onAuthStateChanged, Auth } from '@angular/fire/auth';
+import { onAuthStateChanged, Auth, signOut } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 import { MovieService } from 'src/app/core/services/movie.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -12,8 +14,11 @@ export class HomeComponent implements OnInit {
   movies: any[] = [];
   displayName: string | null = null;
 
-  constructor(private movieService: MovieService,
-    private auth: Auth, 
+  constructor(
+    private movieService: MovieService,
+    private auth: Auth,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -28,6 +33,7 @@ export class HomeComponent implements OnInit {
         console.error('Erro ao carregar filmes', err);
       }
     });
+
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.displayName = user.displayName;
@@ -36,9 +42,31 @@ export class HomeComponent implements OnInit {
   }
 
   navigateToLogin(): void {
-    window.location.href = '/login';
+    this.router.navigate(['/login']);
   }
+
   navigateToCreateGroup(): void {
-    window.location.href = '/criar-grupo';
+    this.authService.getCurrentUser().then(user => {
+      if (user) {
+        this.router.navigate(['/criar-grupo']);
+      } else {
+        this.router.navigate(['/login'], {
+          queryParams: { redirect: 'criar-grupo' }
+        });
+      }
+    });
+  }
+
+  logout(): void {
+    signOut(this.auth).then(() => {
+      this.displayName = null;
+      this.router.navigate(['/home']);
+    }).catch(err => {
+      console.error('Erro ao fazer logout:', err);
+    });
+  }
+
+  navigateToGroups(): void {
+    this.router.navigate(['/meus-grupos']);
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import { doc, getDoc, updateDoc, arrayUnion, query, where, getDocs } from 'firebase/firestore';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Injectable({
@@ -25,4 +26,47 @@ export class GroupService {
 
     return docRef.id; // ID do grupo criado
   }
+
+  async joinGroup(groupId: string) {
+    const user = await this.authService.getCurrentUser();
+    if (!user) throw new Error('Usuário não autenticado');
+  
+    const groupRef = doc(this.firestore, 'groups', groupId);
+    const groupSnap = await getDoc(groupRef);
+  
+    if (!groupSnap.exists()) throw new Error('Grupo não encontrado');
+  
+    const groupData = groupSnap.data();
+  
+    // Se o usuário ainda não é membro, adiciona
+    if (!groupData['members'].includes(user.uid)) {
+      await updateDoc(groupRef, {
+        members: arrayUnion(user.uid)
+      });
+    }
+  
+    return groupData;
+  }
+
+  async getUserGroups() {
+    const user = await this.authService.getCurrentUser();
+    if (!user) throw new Error('Usuário não autenticado');
+
+    const groupRef = collection(this.firestore, 'groups');
+    const q = query(groupRef, where('members', 'array-contains', user.uid));
+    const snapshot = await getDocs(q);
+
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+  }
+
+  async getGroupById(groupId: string) {
+    const groupRef = doc(this.firestore, 'groups', groupId);
+    const groupSnap = await getDoc(groupRef);
+    if (!groupSnap.exists()) throw new Error('Grupo não encontrado');
+    return { id: groupSnap.id, ...groupSnap.data() };
+  }
+  
 }

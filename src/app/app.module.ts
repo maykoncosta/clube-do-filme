@@ -19,6 +19,8 @@ import { CreateGroupComponent } from './views/create-group/create-group.componen
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { GroupComponent } from './views/group/group.component';
+import { MyGroupsComponent } from './views/my-groups/my-groups.component';
 
 
 
@@ -28,7 +30,9 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
     InviteComponent,
     LoginComponent,
     SignupComponent,
-    CreateGroupComponent
+    CreateGroupComponent,
+    GroupComponent,
+    MyGroupsComponent
   ],
   imports: [
     BrowserModule,

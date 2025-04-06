@@ -103,6 +103,16 @@ html, body {
     border-radius: 5px;
 }
 
+.btn-logout {
+    margin-top: 10px;
+    background: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
 .movie-card p {
     color: #fff;
     font-size: 1.1rem;

@@ -1,0 +1,14 @@
+<div class="background">
+    <div *ngIf="isLoading">Carregando grupo...</div>
+    <div *ngIf="!isLoading && groupData">
+        <h2>Bem-vindo ao grupo: {{ groupData.name }}</h2>
+        <p>Você entrou com sucesso!</p>
+
+        <div class="invite-link">
+            <p>Compartilhe este link com seus amigos:</p>
+            <input type="text" [value]="inviteLink" readonly (click)="copyInviteLink()" />
+            <small *ngIf="copied" style="color: limegreen;">Link copiado!</small>
+        </div>
+    </div>
+
+</div>

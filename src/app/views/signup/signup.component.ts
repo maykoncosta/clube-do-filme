@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -13,11 +14,24 @@ export class SignupComponent {
   loading: boolean = false;
   errorMessage: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   onSignup() {
-    this.authService.signUp(this.email, this.password, this.username);
-    
+    this.loading = true;
+    this.errorMessage = '';
+
+    this.authService.signUp(this.email, this.password, this.username)
+      .then(() => {
+        this.loading = false;
+        this.router.navigate(['/criar-grupo']); // redireciona após o cadastro com sucesso
+      })
+      .catch((error) => {
+        this.loading = false;
+        this.errorMessage = this.getFriendlyMessage(error.code || '');
+      });
   }
 
   private getFriendlyMessage(code: string): string {

@@ -1,1 +1,12 @@
-<h1 class="title">Clube Do <br>Filme</h1>
+<div class="invite-container" *ngIf="!isLoading && groupData">
+    <h2>Você foi convidado para o grupo:</h2>
+    <h3>{{ groupData.name }}</h3>
+  
+    <p>Deseja participar?</p>
+  
+    <button (click)="joinGroup()">Entrar no grupo</button>
+  </div>
+  
+  <div *ngIf="isLoading">Carregando convite...</div>
+  <div *ngIf="!isLoading && joinError">{{ joinError }}</div>
+  

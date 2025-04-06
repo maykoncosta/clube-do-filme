@@ -1,1 +1,16 @@
-{}
+{
+  "hosting": {
+    "public": "dist/clube-do-filme",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

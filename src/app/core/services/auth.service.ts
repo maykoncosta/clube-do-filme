@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  constructor(private auth: Auth, private router: Router) {}
+  constructor(private auth: Auth, private router: Router) { }
 
   login(email: string, password: string): Promise<void> {
     return signInWithEmailAndPassword(this.auth, email, password)
@@ -17,27 +17,19 @@ export class AuthService {
       });
   }
 
-  signUp(email: string, password: string, username: string): void {
-    createUserWithEmailAndPassword(this.auth, email, password)
+  signUp(email: string, password: string, username: string): Promise<void> {
+    return createUserWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         if (user) {
-          updateProfile(user, { displayName: username })
-            .then(() => {
-              this.router.navigate(['/home']);
-            });
+          return updateProfile(user, { displayName: username });
         }
+        throw new Error('Usuário não encontrado após cadastro.');
       })
       .catch((error) => {
         console.error(error.message);
-        alert('Erro ao criar a conta.');
+        throw error; // repassa o erro para ser tratado no componente
       });
-
-    onAuthStateChanged(this.auth, (user) => {
-      if (user) {
-        console.log(user.displayName); // Nome do usuário
-      }
-    });
   }
 
   isAuthenticated(): Observable<User | null> {
