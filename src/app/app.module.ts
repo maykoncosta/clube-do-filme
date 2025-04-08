@@ -21,6 +21,8 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { GroupComponent } from './views/group/group.component';
 import { MyGroupsComponent } from './views/my-groups/my-groups.component';
+import { PerfilComponent } from './views/perfil/perfil.component';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 
 
@@ -32,7 +34,8 @@ import { MyGroupsComponent } from './views/my-groups/my-groups.component';
     SignupComponent,
     CreateGroupComponent,
     GroupComponent,
-    MyGroupsComponent
+    MyGroupsComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import { MyGroupsComponent } from './views/my-groups/my-groups.component';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
+    provideStorage(() => getStorage()), 
 
   ],
   providers: [],

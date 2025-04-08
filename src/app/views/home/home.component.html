@@ -1,9 +1,13 @@
-<!-- <app-header></app-header> -->
 <div class="home-container">
   <div class="hero-section">
     <h1>CLUBE DO <br> FILME</h1>
     <h2>Bem-vindo{{ displayName ? ', ' + displayName : '' }}!</h2>
-    <button *ngIf="displayName" class="btn btn-logout" (click)="logout()">Sair</button>
+    
+    <div *ngIf="displayName" class="auth-actions">
+      <button class="btn btn-outline" (click)="navigateToProfile()">Perfil</button>
+      <button class="btn btn-logout" (click)="logout()">Sair</button>
+    </div>
+
     <p>Descubra filmes incríveis com seus amigos!</p>
 
     <div class="buttons">

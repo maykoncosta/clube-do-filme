@@ -1,14 +1,23 @@
 <div class="background">
-    <div *ngIf="isLoading">Carregando grupo...</div>
-    <div *ngIf="!isLoading && groupData">
-        <h2>Bem-vindo ao grupo: {{ groupData.name }}</h2>
-        <p>Você entrou com sucesso!</p>
-
-        <div class="invite-link">
-            <p>Compartilhe este link com seus amigos:</p>
-            <input type="text" [value]="inviteLink" readonly (click)="copyInviteLink()" />
-            <small *ngIf="copied" style="color: limegreen;">Link copiado!</small>
-        </div>
+    <div *ngIf="isLoading" class="group-container">Carregando grupo...</div>
+  
+    <div *ngIf="!isLoading && groupData" class="group-container">
+      <h2>{{ groupData.name }}</h2>
+      <p><strong>Criado por:</strong> {{ groupData.creatorName }}</p>
+      <p><strong>Data de criação:</strong> {{ groupData.createdAt?.toDate() | date:'short' }}</p>
+      <p><strong>Membros:</strong></p>
+      <ul>
+        <li *ngFor="let member of groupData.members">
+          {{ member.name }} <span *ngIf="currentUser?.uid === member.uid">(você)</span>
+        </li>
+      </ul>
+  
+      <p><strong>Convide seus amigos:</strong></p>
+      <div class="invite-link">
+        <input [value]="inviteLink" readonly>
+        <button (click)="copyInviteLink()">Copiar link</button>
+        <span *ngIf="copied">Link copiado!</span>
+      </div>
     </div>
-
-</div>
+  </div>
+  

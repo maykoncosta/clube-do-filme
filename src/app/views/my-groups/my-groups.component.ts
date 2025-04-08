@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GroupService } from 'src/app/core/services/group.service';
 
 @Component({
@@ -10,7 +11,9 @@ export class MyGroupsComponent implements OnInit {
   groups: any[] = [];
   loading = true;
 
-  constructor(private groupService: GroupService) {}
+  constructor(private groupService: GroupService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadGroups();
@@ -20,7 +23,8 @@ export class MyGroupsComponent implements OnInit {
     try {
       this.groups = await this.groupService.getUserGroups();
     } catch (error) {
-      console.error('Erro ao carregar grupos:', error);
+      this.router.navigate(['/home']);
+      alert('Erro ao carregar o grupo.');
     } finally {
       this.loading = false;
     }

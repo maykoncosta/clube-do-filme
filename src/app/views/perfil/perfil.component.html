@@ -1,0 +1,64 @@
+<div class="profile-container">
+    <div class="avatar-section">
+        <img [src]="'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (newAvatar || 'default')" alt="Avatar"
+            class="avatar-img" />
+        <h2>{{ userData?.username }}</h2>
+    </div>
+
+    <div class="form-section">
+        <label for="username">Nome de usuário:</label>
+        <input id="username" [(ngModel)]="newName" />
+
+        <label for="avatarSeed">Avatar:</label>
+        <input type="text" [(ngModel)]="newAvatar" placeholder="Digite uma seed ou gere aleatória" />
+
+        <button (click)="generateRandomSeed()">Gerar avatar aleatório</button>
+        <button (click)="updateProfile()">Salvar alterações</button>
+        <p *ngIf="successMessage">{{ successMessage }}</p>
+    </div>
+
+    <div class="preferences-section">
+        <h3>Preferências Individuais</h3>
+
+        <div class="type-selector">
+            <button *ngFor="let t of preferenceTypes" (click)="selectedType = t" [class.active]="selectedType === t">
+                {{ preferenceLabels[t] }}
+            </button>
+        </div>
+
+        <div class="preference-group" *ngIf="selectedType">
+            <label [for]="selectedType">Buscar {{ preferenceLabels[selectedType] }}:</label>
+            <input *ngIf="selectedType !== 'genres'" [id]="selectedType" [(ngModel)]="search[selectedType]"
+                (keydown.enter)="loadResults(selectedType, true)" placeholder="Digite para buscar" />
+            <button *ngIf="selectedType !== 'genres'" (click)="loadResults(selectedType, true)">Buscar</button>
+
+            <div class="result-list-cards" #scrollContainer (scroll)="onScroll($event)"
+                style="max-height: 400px; overflow-y: auto;">
+                <div *ngFor="let item of results[selectedType]" class="card"
+                    (click)="addPreference(selectedType, item)">
+                    <img *ngIf="selectedType !== 'genres' && (item.profile_path || item.poster_path)"
+                        [src]="'https://image.tmdb.org/t/p/w154' + (item.profile_path || item.poster_path)"
+                        alt="thumb" />
+                    <img *ngIf="selectedType !== 'genres' && !(item.profile_path || item.poster_path)"
+                        [src]="'../../../assets/images/not-found-movie.jpg'"
+                        alt="thumb" />
+                    <p>{{ item.name || item.title }}</p>
+                </div>
+
+                <div *ngIf="isLoading" class="loading-indicator">
+                    Carregando mais resultados...
+                </div>
+            </div>
+
+            <div class="selected-list">
+                <span class="selected-tag" *ngFor="let p of preferences[selectedType]">
+                    {{ p.name || p.title }}
+                    <button (click)="removePreference(selectedType, p.id)">x</button>
+                </span>
+            </div>
+        </div>
+        <button class="save-btn" (click)="savePreferences()">Salvar preferências</button>
+    </div>
+
+
+</div>

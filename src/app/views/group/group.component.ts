@@ -1,6 +1,7 @@
 // group.component.ts
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { GroupService } from 'src/app/core/services/group.service';
 
 @Component({
@@ -14,23 +15,27 @@ export class GroupComponent implements OnInit {
   isLoading = true;
   inviteLink: string = '';
   copied = false;
+  currentUser: any;
 
   constructor(
     private route: ActivatedRoute,
-    private groupService: GroupService
+    private router: Router,
+    private groupService: GroupService,
+    private authService: AuthService
   ) { }
 
   async ngOnInit() {
     this.groupId = this.route.snapshot.paramMap.get('id')!;
     this.inviteLink = `${window.location.origin}/convite/${this.groupId}`;
     this.loadGroup();
+    this.getCurrentUser();
   }
 
   async loadGroup() {
     try {
-      this.groupData = await this.groupService.joinGroup(this.groupId);
+      this.groupData = await this.groupService.getGroupWithDetails(this.groupId);
     } catch (err) {
-      console.error('Erro ao entrar no grupo:', err);
+      this.router.navigate(['/home']);
       alert('Erro ao carregar o grupo.');
     } finally {
       this.isLoading = false;
@@ -42,5 +47,9 @@ export class GroupComponent implements OnInit {
       this.copied = true;
       setTimeout(() => this.copied = false, 2000);
     });
+  }
+
+  private getCurrentUser() {
+    this.currentUser = this.authService.getCurrentUser();
   }
 }

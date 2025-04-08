@@ -69,4 +69,16 @@ export class HomeComponent implements OnInit {
   navigateToGroups(): void {
     this.router.navigate(['/meus-grupos']);
   }
+
+  navigateToProfile(): void {
+    this.router.navigate(['/perfil']);
+  }
+  
+  isAuthenticated(): boolean {
+    let authenticated = false;
+    this.authService.isAuthenticated().subscribe(user => {
+      authenticated = !!user;
+    });
+    return authenticated;
+  }
 }

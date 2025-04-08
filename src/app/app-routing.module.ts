@@ -8,6 +8,7 @@ import { CreateGroupComponent } from './views/create-group/create-group.componen
 import { GroupComponent } from './views/group/group.component';
 import { MyGroupsComponent } from './views/my-groups/my-groups.component';
 import { InviteComponent } from './views/invite/invite.component';
+import { PerfilComponent } from './views/perfil/perfil.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthRedirectGuard] },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'grupo/:id', component: GroupComponent },
   { path: 'meus-grupos', component: MyGroupsComponent },
   { path: 'convite/:id', component: InviteComponent },
+  { path: 'perfil', component: PerfilComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' }
 ];

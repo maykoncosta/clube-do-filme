@@ -17,7 +17,7 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   onLogin() {
     this.loading = true;
@@ -25,9 +25,17 @@ export class LoginComponent {
       .then(() => {
         this.loading = false;
         const redirect = this.route.snapshot.queryParamMap.get('redirect');
-        console.log('Redirect:', redirect);
+        const pendingGroupId = localStorage.getItem('pendingGroupId');
         if (redirect) {
-          this.router.navigate([`/${redirect}`]);
+          this.router.navigate([`/${redirect}`]).then(() => {
+            this.router.navigate([], {
+              queryParams: { redirect: null },
+              queryParamsHandling: 'merge'
+            });
+          });
+        } else if (pendingGroupId) {
+          localStorage.removeItem('pendingGroupId');
+          this.router.navigate(['/grupo', pendingGroupId]);
         } else {
           this.router.navigate(['/home']);
         }

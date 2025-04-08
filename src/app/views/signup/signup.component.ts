@@ -22,11 +22,18 @@ export class SignupComponent {
   onSignup() {
     this.loading = true;
     this.errorMessage = '';
-
+  
     this.authService.signUp(this.email, this.password, this.username)
       .then(() => {
         this.loading = false;
-        this.router.navigate(['/criar-grupo']); // redireciona após o cadastro com sucesso
+  
+        const pendingGroupId = localStorage.getItem('pendingGroupId');
+        if (pendingGroupId) {
+          localStorage.removeItem('pendingGroupId');
+          this.router.navigate(['/grupo', pendingGroupId]);
+        } else {
+          this.router.navigate(['/criar-grupo']); // fallback padrão
+        }
       })
       .catch((error) => {
         this.loading = false;

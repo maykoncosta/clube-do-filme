@@ -1,14 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged, signOut, User } from '@angular/fire/auth';
+import {
+  Auth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  onAuthStateChanged,
+  signOut,
+  User
+} from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  constructor(private auth: Auth, private router: Router) { }
+  constructor(
+    private auth: Auth,
+    private router: Router,
+    private firestore: Firestore
+  ) {}
 
   login(email: string, password: string): Promise<void> {
     return signInWithEmailAndPassword(this.auth, email, password)
@@ -17,19 +29,30 @@ export class AuthService {
       });
   }
 
-  signUp(email: string, password: string, username: string): Promise<void> {
-    return createUserWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        if (user) {
-          return updateProfile(user, { displayName: username });
-        }
-        throw new Error('Usuário não encontrado após cadastro.');
-      })
-      .catch((error) => {
-        console.error(error.message);
-        throw error; // repassa o erro para ser tratado no componente
+  async signUp(email: string, password: string, username: string): Promise<void> {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      const user = userCredential.user;
+
+      if (!user) throw new Error('Usuário não encontrado após cadastro.');
+
+      const avatarSeed = username || Math.random().toString(36).substring(2, 10);
+      // Atualiza o nome do usuário no Auth
+      await updateProfile(user, { displayName: username });
+
+      // Cria o documento do usuário no Firestore
+      const userRef = doc(this.firestore, 'users', user.uid);
+      await setDoc(userRef, {
+        uid: user.uid,
+        email: user.email,
+        username: username,
+        avatarSeed: avatarSeed,
+        createdAt: new Date()
       });
+    } catch (error) {
+      alert(error);
+      throw error;
+    }
   }
 
   isAuthenticated(): Observable<User | null> {
@@ -47,6 +70,12 @@ export class AuthService {
   }
 
   getCurrentUser(): Promise<User | null> {
-    return Promise.resolve(this.auth.currentUser);
+    return new Promise((resolve) => {
+      const unsubscribe = onAuthStateChanged(this.auth, (user) => {
+        unsubscribe(); // evita múltiplas execuções
+        resolve(user);
+      });
+    });
   }
+  
 }

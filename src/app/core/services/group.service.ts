@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class GroupService {
 
-  constructor(private firestore: Firestore, private authService: AuthService) {}
+  constructor(private firestore: Firestore, private authService: AuthService) { }
 
   async createGroup(name: string) {
     const user = await this.authService.getCurrentUser();
@@ -30,21 +30,21 @@ export class GroupService {
   async joinGroup(groupId: string) {
     const user = await this.authService.getCurrentUser();
     if (!user) throw new Error('Usuário não autenticado');
-  
+
     const groupRef = doc(this.firestore, 'groups', groupId);
     const groupSnap = await getDoc(groupRef);
-  
+
     if (!groupSnap.exists()) throw new Error('Grupo não encontrado');
-  
+
     const groupData = groupSnap.data();
-  
+
     // Se o usuário ainda não é membro, adiciona
     if (!groupData['members'].includes(user.uid)) {
       await updateDoc(groupRef, {
         members: arrayUnion(user.uid)
       });
     }
-  
+
     return groupData;
   }
 
@@ -68,5 +68,33 @@ export class GroupService {
     if (!groupSnap.exists()) throw new Error('Grupo não encontrado');
     return { id: groupSnap.id, ...groupSnap.data() };
   }
+
+  async getGroupWithDetails(groupId: string) {
+    const groupRef = doc(this.firestore, 'groups', groupId);
+    const groupSnap = await getDoc(groupRef);
+    if (!groupSnap.exists()) throw new Error('Grupo não encontrado');
   
+    const groupData = groupSnap.data();
+    const creatorRef = doc(this.firestore, 'users', groupData['createdBy']);
+    const creatorSnap = await getDoc(creatorRef);
+    const creatorName = creatorSnap.exists() ? creatorSnap.data()['username'] : 'Desconhecido';
+  
+    const members: { uid: string; name: string }[] = [];
+    for (const uid of groupData['members'] || []) {
+      const userSnap = await getDoc(doc(this.firestore, 'users', uid));
+      members.push({
+        uid,
+        name: userSnap.exists() ? userSnap.data()['username'] || uid : uid
+      });
+    }
+  
+    return {
+      id: groupSnap.id,
+      name: groupData['name'],
+      createdAt: groupData['createdAt'],
+      creatorName,
+      members
+    };
+  }
+
 }
