@@ -1,5 +1,6 @@
-<mat-toolbar color="primary" class="header">
-    <mat-icon>menu</mat-icon>
-    <h1 class="title">Clube do Filme</h1>
-    <h2></h2>
-</mat-toolbar>
+<header *ngIf="!isHome" class="header">
+    <button (click)="goBack()" class="back-button">
+        ← Voltar
+    </button>
+    <h1 (click)="goHome()" class="header-title">Clube do Filme</h1>
+</header>

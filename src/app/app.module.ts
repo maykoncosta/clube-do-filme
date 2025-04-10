@@ -13,8 +13,6 @@ import { LoginComponent } from './views/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { SignupComponent } from './views/signup/signup.component';
 import { environment } from '../environments/environment';
-import { AngularFireModule } from '@angular/fire/compat';
-import { HeaderModule } from './shared/components/header/header.module';
 import { CreateGroupComponent } from './views/create-group/create-group.component';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -35,16 +33,14 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
     CreateGroupComponent,
     GroupComponent,
     MyGroupsComponent,
-    PerfilComponent
+    PerfilComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HomeModule,
-    HeaderModule,
-    MatToolbarModule,
-    MatIconModule,
     FormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),

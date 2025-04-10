@@ -10,7 +10,8 @@ html, body {
     color: #333;
     background: url('/assets/images/background_gb.png') no-repeat center center;
     background-size: cover;
-    background-attachment: fixed;  /* Mantém a imagem fixa */
+    background-attachment: fixed;
+    /* Mantém a imagem fixa */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -22,7 +23,8 @@ html, body {
 
 /* Seção hero */
 .hero-section {
-    height: 100vh;  /* Garante que ocupe toda a altura da tela */
+    height: 100vh;
+    /* Garante que ocupe toda a altura da tela */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34,7 +36,8 @@ html, body {
     font-size: 4rem;
     font-weight: bold;
     text-transform: uppercase;
-    color: #fff; 
+    font-family: "Aclonica", serif;
+    color: #fff;
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
 }
 
@@ -111,7 +114,7 @@ html, body {
     padding: 5px 12px;
     border-radius: 6px;
     cursor: pointer;
-  }
+}
 
 .movie-card p {
     color: #fff;
@@ -141,5 +144,4 @@ html, body {
     gap: 10px;
     justify-content: center;
     margin-top: 10px;
-  }
-  
+}

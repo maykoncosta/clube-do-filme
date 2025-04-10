@@ -1,24 +1,40 @@
 .header {
     background-color: transparent;
-    /* Torna a header transparente */
     color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    /* Sombra suave para destacar */
     position: fixed;
-    /* Para que a header fique fixa no topo */
     width: 100%;
     top: 0;
     left: 0;
     z-index: 10;
-    /* Para garantir que a header fique acima de outros elementos */
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-}
-
-.title {
-    font-size: larger;
+    padding: 10px 16px;
+  }
+  
+  .header-title {
+    font-size: x-large;
     font-family: "Aclonica", serif;
     font-weight: 400;
     font-style: normal;
-}
+    cursor: pointer;
+  }
+  
+  .back-button {
+    position: absolute;
+    left: 16px;
+    font-size: 14px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 6px 12px;
+    transition: color 0.2s ease;
+  }
+  
+  .back-button:hover {
+    color: #d1d5db; /* gray-300 */
+  }
+  
