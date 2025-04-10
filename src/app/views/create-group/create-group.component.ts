@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { GroupService } from 'src/app/core/services/group.service';
+import { MessageService } from 'src/app/core/services/message.service';
 
 @Component({
   selector: 'app-create-group',
@@ -13,12 +14,13 @@ export class CreateGroupComponent {
 
   constructor(
     private groupService: GroupService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private messageService: MessageService
+  ) { }
 
   async onCreateGroup() {
     if (!this.groupName.trim()) {
-      alert('O nome do grupo é obrigatório.');
+      this.messageService.info('O nome do grupo é obrigatório.');
       return;
     }
 
@@ -26,10 +28,10 @@ export class CreateGroupComponent {
 
     try {
       const groupId = await this.groupService.createGroup(this.groupName.trim());
-      this.router.navigate(['/grupo', groupId]); // ou qualquer rota que direcione para o grupo
+      this.messageService.success('Grupo criado com sucesso!');
+      this.router.navigate(['/grupo', groupId]);
     } catch (error) {
-      console.error('Erro ao criar grupo:', error);
-      alert('Erro ao criar grupo. Tente novamente.');
+      this.messageService.error('Erro ao criar o grupo. Tente novamente.');
     } finally {
       this.isLoading = false;
     }

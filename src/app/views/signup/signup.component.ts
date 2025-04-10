@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { MessageService } from 'src/app/core/services/message.service';
 
 @Component({
   selector: 'app-signup',
@@ -16,17 +17,15 @@ export class SignupComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private messageService: MessageService
+  ) { }
 
   onSignup() {
     this.loading = true;
-    this.errorMessage = '';
-  
     this.authService.signUp(this.email, this.password, this.username)
       .then(() => {
-        this.loading = false;
-  
+        
         const pendingGroupId = localStorage.getItem('pendingGroupId');
         if (pendingGroupId) {
           localStorage.removeItem('pendingGroupId');
@@ -34,10 +33,13 @@ export class SignupComponent {
         } else {
           this.router.navigate(['/criar-grupo']); // fallback padrão
         }
+        
+        this.loading = false;
+        this.messageService.success('Cadastro Feito Com Sucesso!');
       })
       .catch((error) => {
         this.loading = false;
-        this.errorMessage = this.getFriendlyMessage(error.code || '');
+        this.messageService.error(this.getFriendlyMessage(error.code || ''));
       });
   }
 

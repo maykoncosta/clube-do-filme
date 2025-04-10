@@ -1,19 +1,20 @@
+<app-loader [show]="loading"></app-loader>
+
 <div class="my-groups-container">
-    <div class="my-groups-content">
-      <h2>Meus Grupos</h2>
-  
-      <div *ngIf="loading" class="status-message">Carregando grupos...</div>
-      <div *ngIf="!loading && groups.length === 0" class="status-message">Você ainda não participa de nenhum grupo.</div>
-  
-      <ul *ngIf="groups.length > 0" class="group-list">
-        <li *ngFor="let group of groups" class="group-item">
-          <div class="group-info">
-            <strong class="group-name">{{ group.name }}</strong>
-            <p class="group-date">Criado em: {{ group.createdAt?.toDate() | date:'short' }}</p>
-          </div>
-          <a class="group-link" [routerLink]="['/grupo', group.id]">Ver grupo</a>
-        </li>
-      </ul>
-    </div>
+  <div class="my-groups-content">
+    <h2>Meus Grupos</h2>
+
+    <div *ngIf="loading" class="status-message">Carregando grupos...</div>
+    <div *ngIf="!loading && groups.length === 0" class="status-message">Você ainda não participa de nenhum grupo.</div>
+
+    <ul *ngIf="groups.length > 0" class="group-list">
+      <li *ngFor="let group of groups" class="group-item">
+        <div class="group-info">
+          <strong class="group-name">{{ group.name }}</strong>
+          <p class="group-date">Criado em: {{ group.createdAt?.toDate() | date:'short' }}</p>
+        </div>
+        <a class="group-link" [routerLink]="['/grupo', group.id]">Ver grupo</a>
+      </li>
+    </ul>
   </div>
-  
+</div>

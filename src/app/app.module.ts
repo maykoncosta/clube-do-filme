@@ -21,6 +21,9 @@ import { GroupComponent } from './views/group/group.component';
 import { MyGroupsComponent } from './views/my-groups/my-groups.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+import { LoaderComponent } from './shared/components/loader/loader.component';
+import { MessageComponent } from './shared/components/message/message.component';
+import { NotFoundComponent } from './views/not-found/not-found.component';
 
 
 
@@ -34,7 +37,10 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
     GroupComponent,
     MyGroupsComponent,
     PerfilComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoaderComponent,
+    MessageComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

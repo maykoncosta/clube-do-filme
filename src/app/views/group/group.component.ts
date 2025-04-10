@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { GroupService } from 'src/app/core/services/group.service';
+import { MessageService } from 'src/app/core/services/message.service';
 
 @Component({
   selector: 'app-group',
@@ -21,7 +22,8 @@ export class GroupComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private groupService: GroupService,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService
   ) { }
 
   async ngOnInit() {
@@ -36,7 +38,7 @@ export class GroupComponent implements OnInit {
       this.groupData = await this.groupService.getGroupWithDetails(this.groupId);
     } catch (err) {
       this.router.navigate(['/home']);
-      alert('Erro ao carregar o grupo.');
+      this.messageService.error('Grupo não encontrado.');
     } finally {
       this.isLoading = false;
     }

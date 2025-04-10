@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { MovieService } from 'src/app/core/services/movie.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { MessageService } from 'src/app/core/services/message.service';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
     private movieService: MovieService,
     private auth: Auth,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +32,7 @@ export class HomeComponent implements OnInit {
         }));
       },
       error: (err) => {
-        console.error('Erro ao carregar filmes', err);
+        this.messageService.error('Erro ao carregar filmes.');
       }
     });
 
@@ -61,8 +63,9 @@ export class HomeComponent implements OnInit {
     signOut(this.auth).then(() => {
       this.displayName = null;
       this.router.navigate(['/home']);
+      this.messageService.success('Logout realizado com sucesso!');
     }).catch(err => {
-      console.error('Erro ao fazer logout:', err);
+      this.messageService.error('Erro ao fazer logout.');
     });
   }
 

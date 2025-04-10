@@ -1,0 +1,46 @@
+.not-found-container {
+    background: url('../../../assets/images/not-found.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    background-color: #e6f2e9;
+    padding: 1rem;
+}
+
+.not-found-container img {
+    width: 300px;
+    max-width: 90%;
+    margin-bottom: 1.5rem;
+}
+
+.not-found-container h1 {
+    font-size: 2rem;
+    color: #bfac00;
+    margin-bottom: 0.5rem;
+}
+
+.not-found-container p {
+    font-size: 1.1rem;
+    color: #bfac00;
+    margin-bottom: 1.5rem;
+}
+
+.not-found-container button {
+    background-color: #5f8c6f;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.not-found-container button:hover {
+    background-color: #4a725a;
+}

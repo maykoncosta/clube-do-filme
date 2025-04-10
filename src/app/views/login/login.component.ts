@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { MessageService } from 'src/app/core/services/message.service';
 
 @Component({
   selector: 'app-login',
@@ -10,13 +11,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class LoginComponent {
   email = '';
   password = '';
-  errorMessage = '';
   loading = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private messageService: MessageService
   ) { }
 
   onLogin() {
@@ -39,10 +40,11 @@ export class LoginComponent {
         } else {
           this.router.navigate(['/home']);
         }
+        this.messageService.success('Login feito com sucesso!');
       })
       .catch(err => {
         this.loading = false;
-        this.errorMessage = 'Email ou senha inválidos.';
+        this.messageService.error('Erro ao fazer login. Tente novamente.');
       });
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { User, UserService } from 'src/app/core/services/user.service';
 import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 import { MovieService } from 'src/app/core/services/movie.service';
+import { MessageService } from 'src/app/core/services/message.service';
 
 type PreferenceType = 'genres' | 'actors' | 'directors' | 'movies';
 
@@ -14,7 +15,6 @@ export class PerfilComponent implements OnInit {
   userData: User | any;
   newName: string = '';
   newAvatar: string = '';
-  successMessage: string = '';
   currentPage = 1;
   hasMoreResults = true;
   isLoading = false;
@@ -55,10 +55,12 @@ export class PerfilComponent implements OnInit {
   constructor(
     private userService: UserService,
     private auth: Auth,
-    private movieService: MovieService
+    private movieService: MovieService,
+    private messageService: MessageService
   ) { }
 
   async ngOnInit() {
+    this.isLoading = true;
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
         this.userData = await this.userService.getUserData(user.uid);
@@ -74,6 +76,7 @@ export class PerfilComponent implements OnInit {
           };
         }
 
+        this.isLoading = false;
         this.loadResults(this.selectedType, true);
       }
     });
@@ -85,8 +88,7 @@ export class PerfilComponent implements OnInit {
     const username = this.newName || this.userData.username;
 
     await this.userService.updateProfile(uid, username, avatarSeed);
-    this.successMessage = 'Perfil atualizado com sucesso!';
-    setTimeout(() => (this.successMessage = ''), 3000);
+    this.messageService.success('Perfil atualizado com sucesso!');
   }
 
   generateRandomSeed() {
@@ -95,8 +97,7 @@ export class PerfilComponent implements OnInit {
 
   savePreferences() {
     this.userService.savePreferences(this.userData.uid, this.preferences);
-    this.successMessage = 'Preferências salvas com sucesso!';
-    setTimeout(() => (this.successMessage = ''), 3000);
+    this.messageService.success('Perfil atualizado com sucesso!');
   }
 
   loadResults(type: PreferenceType, reset = false) {
@@ -150,7 +151,7 @@ export class PerfilComponent implements OnInit {
     const element = event.target as HTMLElement;
     const threshold = 100; // margem inferior para acionar
     const atBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + threshold;
-  
+
     if (atBottom) {
       this.loadResults(this.selectedType); // carrega mais resultados
     }

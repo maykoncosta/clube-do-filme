@@ -1,3 +1,5 @@
+<app-loader [show]="isLoading"></app-loader>
+
 <div class="profile-container">
     <div class="avatar-section">
         <img [src]="'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (newAvatar || 'default')" alt="Avatar"
@@ -14,7 +16,6 @@
 
         <button (click)="generateRandomSeed()">Gerar avatar aleatório</button>
         <button (click)="updateProfile()">Salvar alterações</button>
-        <p *ngIf="successMessage">{{ successMessage }}</p>
     </div>
 
     <div class="preferences-section">
@@ -40,8 +41,7 @@
                         [src]="'https://image.tmdb.org/t/p/w154' + (item.profile_path || item.poster_path)"
                         alt="thumb" />
                     <img *ngIf="selectedType !== 'genres' && !(item.profile_path || item.poster_path)"
-                        [src]="'../../../assets/images/not-found-movie.jpg'"
-                        alt="thumb" />
+                        [src]="'../../../assets/images/not-found-movie.jpg'" alt="thumb" />
                     <p>{{ item.name || item.title }}</p>
                 </div>
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GroupService } from 'src/app/core/services/group.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { MessageService } from 'src/app/core/services/message.service';
 
 @Component({
   selector: 'app-invite',
@@ -12,21 +13,21 @@ export class InviteComponent implements OnInit {
   groupId!: string;
   groupData: any;
   isLoading = true;
-  joinError: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private groupService: GroupService,
     private authService: AuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private messageService: MessageService
+  ) { }
 
   async ngOnInit() {
     this.groupId = this.route.snapshot.paramMap.get('id')!;
     try {
-      this.groupData = await this.groupService.getGroupById(this.groupId); // já está no seu plano
+      this.groupData = await this.groupService.getGroupById(this.groupId);
     } catch (err) {
-      this.joinError = 'Grupo não encontrado.';
+      this.messageService.error('Grupo não encontrado.');
     } finally {
       this.isLoading = false;
     }
@@ -43,9 +44,10 @@ export class InviteComponent implements OnInit {
       }
 
       await this.groupService.joinGroup(this.groupId);
+      this.messageService.success('Você entrou no grupo com sucesso!');
       this.router.navigate(['/grupo', this.groupId]);
     } catch (err) {
-      this.joinError = 'Erro ao entrar no grupo.';
+      this.messageService.error('Grupo não encontrado.');
       console.error(err);
     }
   }

@@ -9,6 +9,7 @@ import { GroupComponent } from './views/group/group.component';
 import { MyGroupsComponent } from './views/my-groups/my-groups.component';
 import { InviteComponent } from './views/invite/invite.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
+import { NotFoundComponent } from './views/not-found/not-found.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthRedirectGuard] },
@@ -20,7 +21,7 @@ const routes: Routes = [
   { path: 'convite/:id', component: InviteComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: 'home' }
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
