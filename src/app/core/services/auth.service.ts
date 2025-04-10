@@ -77,5 +77,9 @@ export class AuthService {
       });
     });
   }
+
+  currentUserUid(): string | null {
+    return this.auth.currentUser ? this.auth.currentUser.uid : null;
+  }
   
 }

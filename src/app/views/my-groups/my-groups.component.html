@@ -12,9 +12,18 @@
         <div class="group-info">
           <strong class="group-name">{{ group.name }}</strong>
           <p class="group-date">Criado em: {{ group.createdAt?.toDate() | date:'short' }}</p>
+          <div class="group-avatars">
+            <ng-container *ngFor="let member of group.members">
+              <div class="avatar-wrapper">
+                <img [src]="'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (member.avatarSeed || 'default')"
+                  alt="{{ member.name }}" class="member-avatar" [title]="member.name" />
+                </div>
+            </ng-container>
+          </div>
         </div>
         <a class="group-link" [routerLink]="['/grupo', group.id]">Ver grupo</a>
       </li>
     </ul>
+
   </div>
 </div>
