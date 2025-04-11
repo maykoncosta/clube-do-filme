@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
-import { doc, getDoc, updateDoc, arrayUnion, query, where, getDocs } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, arrayUnion, getDocs, deleteDoc } from 'firebase/firestore';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 interface Group {
@@ -130,5 +130,16 @@ export class GroupService {
       members
     };
   }
+
+  async updateGroupName(groupId: string, newName: string) {
+    const groupRef = doc(this.firestore, 'groups', groupId);
+    await updateDoc(groupRef, { name: newName });
+  }
+  
+  async deleteGroup(groupId: string) {
+    const groupRef = doc(this.firestore, 'groups', groupId);
+    await deleteDoc(groupRef);
+  }
+  
 
 }

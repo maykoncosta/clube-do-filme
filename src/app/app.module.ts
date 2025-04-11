@@ -24,6 +24,8 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { MessageComponent } from './shared/components/message/message.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
+import { File, LucideAngularModule, Pencil, X } from 'lucide-angular';
+import { ConfirmModalComponent } from './shared/components/confirm-modal/confirm-modal.component';
 
 
 
@@ -40,7 +42,8 @@ import { NotFoundComponent } from './views/not-found/not-found.component';
     HeaderComponent,
     LoaderComponent,
     MessageComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,7 @@ import { NotFoundComponent } from './views/not-found/not-found.component';
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()), 
-
+    LucideAngularModule.pick({File, X, Pencil})
   ],
   providers: [],
   bootstrap: [AppComponent]

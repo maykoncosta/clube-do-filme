@@ -133,3 +133,107 @@ h2 {
   visibility: visible;
   opacity: 1;
 }
+
+.group-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.group-link button{
+  margin-right: 5px;
+}
+
+.group-actions{
+  margin-top: 10px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+.modal input {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  outline: none;
+}
+
+.modal input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.modal-buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.modal-buttons button:first-child {
+  background: rgba(76, 175, 80, 0.3);
+  color: #ffffff;
+}
+
+.modal-buttons button:last-child {
+  background: rgba(244, 67, 54, 0.3);
+  color: #ffffff;
+}
+
+.modal-buttons button:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

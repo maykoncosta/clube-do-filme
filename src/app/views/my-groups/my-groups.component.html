@@ -17,13 +17,47 @@
               <div class="avatar-wrapper">
                 <img [src]="'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (member.avatarSeed || 'default')"
                   alt="{{ member.name }}" class="member-avatar" [title]="member.name" />
-                </div>
+              </div>
             </ng-container>
           </div>
         </div>
-        <a class="group-link" [routerLink]="['/grupo', group.id]">Ver grupo</a>
+        <div class="group-buttons">
+          <a class="group-link" [routerLink]="['/grupo', group.id]">Ver grupo</a>
+          <div class="group-actions" *ngIf="isGroupAdmin(group)">
+            <button class="group-link" (click)="openEditModal(group)">
+              <lucide-icon name="pencil" class="my-icon" size="16"
+                style="vertical-align: middle; margin-right: 4px;"></lucide-icon>
+              </button>
+            <button class="group-link" (click)="openDeleteModal(group.id)">
+              <lucide-icon name="x" class="my-icon" size="16"
+                style="vertical-align: middle; margin-right: 4px;"></lucide-icon>
+            </button>
+          </div>
+        </div>
       </li>
     </ul>
-
   </div>
 </div>
+
+<!-- Modal de edição -->
+<div class="modal-overlay" *ngIf="editingGroup">
+  <div class="modal">
+    <h3>Editar Nome do Grupo</h3>
+    <input type="text" [(ngModel)]="editedGroupName" placeholder="Novo nome do grupo" />
+
+    <div class="modal-buttons">
+      <button (click)="confirmEditGroup()">Salvar</button>
+      <button (click)="cancelEdit()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<app-confirm-modal
+  [show]="showDeleteModal"
+  title="Excluir Grupo"
+  message="Tem certeza que deseja excluir esse grupo? Essa ação não poderá ser desfeita."
+  confirmText="Sim, excluir"
+  cancelText="Cancelar"
+  (confirm)="deleteGroupConfirmed()"
+  (cancel)="showDeleteModal = false">
+</app-confirm-modal>

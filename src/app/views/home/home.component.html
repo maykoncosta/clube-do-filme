@@ -2,7 +2,7 @@
   <div class="hero-section">
     <h1>Clube Do <br> Filme</h1>
     <h2>Bem-vindo{{ displayName ? ', ' + displayName : '' }}!</h2>
-    
+
     <div *ngIf="displayName" class="auth-actions">
       <button class="btn btn-outline" (click)="navigateToProfile()">Perfil</button>
       <button class="btn btn-logout" (click)="logout()">Sair</button>
@@ -11,9 +11,9 @@
     <p>Descubra filmes incríveis com seus amigos!</p>
 
     <div class="buttons">
-      <button class="btn btn-primary" (click)="navigateToCreateGroup()">Criar Grupo</button>
-      <button class="btn btn-secondary" (click)="navigateToLogin()">Entrar</button>
-      <button class="btn btn-outline" (click)="navigateToGroups()">Meus Grupos</button>
+      <button  class="btn btn-primary" (click)="navigateToCreateGroup()">Criar Grupo</button>
+      <button *ngIf="!displayName" class="btn btn-secondary" (click)="navigateToLogin()">Entrar</button>
+      <button *ngIf="displayName" class="btn btn-outline" (click)="navigateToGroups()">Meus Grupos</button>
     </div>
   </div>
 
