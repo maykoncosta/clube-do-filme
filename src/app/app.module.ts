@@ -24,8 +24,10 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { MessageComponent } from './shared/components/message/message.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
-import { File, LucideAngularModule, Pencil, X } from 'lucide-angular';
+import { File, LogOut, LucideAngularModule, Pencil, X } from 'lucide-angular';
 import { ConfirmModalComponent } from './shared/components/confirm-modal/confirm-modal.component';
+import { MovieDetailsModalComponent } from './views/movie-details-modal/movie-details-modal.component';
+import { DialogModule } from 'primeng/dialog';
 
 
 
@@ -43,7 +45,8 @@ import { ConfirmModalComponent } from './shared/components/confirm-modal/confirm
     LoaderComponent,
     MessageComponent,
     NotFoundComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    MovieDetailsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { ConfirmModalComponent } from './shared/components/confirm-modal/confirm
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()), 
-    LucideAngularModule.pick({File, X, Pencil})
+    LucideAngularModule.pick({File, X, Pencil, LogOut}),
+    DialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

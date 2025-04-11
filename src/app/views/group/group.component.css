@@ -65,4 +65,76 @@
     background-color: rgba(76, 175, 80, 1);
   }
   
+  .group-name {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
   
+  .members-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  .members-container p{
+    font-size: small;
+  }
+  
+  .member-card {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 12px;
+    width: 50px;
+  }
+  
+  .avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .section-title {
+    text-align: center;
+    margin: 20px 0 10px;
+  }
+  
+  .recommendations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  
+  .movie-card {
+    width: 70px;
+    text-align: center;
+  }
+  
+  .movie-card img {
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .dialog{
+    border: #000000 1px solid;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

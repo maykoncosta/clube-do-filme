@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
-import { doc, getDoc, updateDoc, arrayUnion, getDocs, deleteDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, arrayUnion, getDocs, deleteDoc, arrayRemove } from 'firebase/firestore';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 interface Group {
@@ -69,8 +69,8 @@ export class GroupService {
     const snapshot = await getDocs(groupsRef);
 
     const groups: Group[] = snapshot.docs
-      .map(doc => ({ 
-        id: doc.id, 
+      .map(doc => ({
+        id: doc.id,
         ...(doc.data() as Omit<Group, 'id' | 'members'> & { members?: string[] }),
         members: doc.data()['members'] || [] // Ensure members is always an array
       }))
@@ -113,12 +113,13 @@ export class GroupService {
     const creatorSnap = await getDoc(creatorRef);
     const creatorName = creatorSnap.exists() ? creatorSnap.data()['username'] : 'Desconhecido';
 
-    const members: { uid: string; name: string }[] = [];
+    const members: { uid: string; name: string; avatarSeed: string | null }[] = [];
     for (const uid of groupData['members'] || []) {
       const userSnap = await getDoc(doc(this.firestore, 'users', uid));
       members.push({
         uid,
-        name: userSnap.exists() ? userSnap.data()['username'] || uid : uid
+        name: userSnap.exists() ? userSnap.data()['username'] || uid : uid,
+        avatarSeed: userSnap.exists() ? userSnap.data()['avatarSeed'] || null : null
       });
     }
 
@@ -126,6 +127,7 @@ export class GroupService {
       id: groupSnap.id,
       name: groupData['name'],
       createdAt: groupData['createdAt'],
+      createdBy: groupData['createdBy'],
       creatorName,
       members
     };
@@ -135,11 +137,32 @@ export class GroupService {
     const groupRef = doc(this.firestore, 'groups', groupId);
     await updateDoc(groupRef, { name: newName });
   }
-  
+
   async deleteGroup(groupId: string) {
     const groupRef = doc(this.firestore, 'groups', groupId);
     await deleteDoc(groupRef);
   }
-  
+
+  async removeMember(groupId: string, userId: string) {
+    const groupRef = doc(this.firestore, 'groups', groupId);
+    const groupSnap = await getDoc(groupRef);
+
+    if (!groupSnap.exists()) {
+      throw new Error('Grupo não encontrado');
+    }
+
+    const groupData = groupSnap.data();
+    const members = groupData['members'] || [];
+
+    const memberToRemove = members.find((m: any) => m === userId);
+
+    if (!memberToRemove) {
+      throw new Error('Membro não encontrado no grupo');
+    }
+
+    await updateDoc(groupRef, {
+      members: arrayRemove(memberToRemove)
+    });
+  }
 
 }

@@ -1,24 +1,47 @@
 <app-loader [show]="isLoading"></app-loader>
 
 <div class="background">
-  <div *ngIf="isLoading" class="group-container">Carregando grupo...</div>
-
   <div *ngIf="!isLoading && groupData" class="group-container">
-    <h2>{{ groupData.name }}</h2>
-    <p><strong>Criado por:</strong> {{ groupData.creatorName }}</p>
-    <p><strong>Data de criação:</strong> {{ groupData.createdAt?.toDate() | date:'short' }}</p>
-    <p><strong>Membros:</strong></p>
-    <ul>
-      <li *ngFor="let member of groupData.members">
-        {{ member.name }} <span *ngIf="currentUser?.uid === member.uid">(você)</span>
-      </li>
-    </ul>
 
-    <p><strong>Convide seus amigos:</strong></p>
-    <div class="invite-link">
-      <input [value]="inviteLink" readonly>
-      <button (click)="copyInviteLink()">Copiar link</button>
-      <span *ngIf="copied">Link copiado!</span>
+    <h2 class="group-name">{{ groupData.name }}</h2>
+
+    <div class="members-container">
+      <div *ngFor="let member of groupData.members" class="member-card">
+        <img [src]="'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (member.avatarSeed || 'default')"
+          alt="{{ member.name }}" class="member-avatar" [title]="member.name" />
+        <p>{{ member.name }} <span *ngIf="currentUser?.uid === member.uid">(você)</span></p>
+        <button *ngIf="currentUser.__zone_symbol__value.uid == groupData.createdBy 
+          && currentUser.__zone_symbol__value.uid != member.uid" class="remove-button"
+          (click)="openDeleteModal(member.uid)">
+          <lucide-icon name="log-out" class="my-icon" size="16"
+            style="vertical-align: middle; margin-right: 4px;"></lucide-icon>
+        </button>
+      </div>
     </div>
+
+    <h3 class="section-title">Recomendações</h3>
+    <div class="recommendations">
+      <div (click)="openMovieModal(movie.id)" *ngFor="let movie of recommendedMovies" class="movie-card">
+        <img [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" alt="{{ movie.title }}">
+        <p>{{ movie.title }}</p>
+      </div>
+    </div>
+
   </div>
 </div>
+
+<app-confirm-modal [show]="showDeleteModal" title="Remover Membro" message="Tem certeza que deseja remover o membro?"
+  confirmText="Sim, remover" cancelText="Cancelar" (confirm)="removeMember()" (cancel)="showDeleteModal = false">
+</app-confirm-modal>
+
+<div *ngIf="selectedMovieId" class="modal-overlay">
+  <app-movie-details-modal *ngIf="selectedMovieId" [movieId]="selectedMovieId" (closed)="selectedMovieId = null">
+  </app-movie-details-modal>
+</div>
+
+<!-- <p><strong>Convide seus amigos:</strong></p>
+<div class="invite-link">
+  <input [value]="inviteLink" readonly>
+  <button (click)="copyInviteLink()">Copiar link</button>
+  <span *ngIf="copied">Link copiado!</span>
+</div> -->

@@ -60,4 +60,11 @@ export class MovieService {
       params
     });
   }
+
+  getMovieDetails(movieId: number) {
+    return this.http.get(`${this.baseUrl}/movie/${movieId}?language=pt-BR`, {
+      headers: this.headers,
+    });
+  }
+  
 }
