@@ -1,140 +1,390 @@
 .background {
-    background-image: url('../../../assets/images/background_group.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .group-container {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 30px;
-    border-radius: 16px;
-    max-width: 600px;
-    width: 100%;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    color: #000000;
-  }
-  
-  .group-container h2 {
-    margin-bottom: 10px;
-  }
-  
-  .group-container p,
-  .group-container ul {
-    margin-bottom: 10px;
-  }
-  
-  .group-container ul {
-    padding-left: 20px;
-  }
-  
-  .invite-link input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 8px;
-    font-size: 16px;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-  }
-  
-  .invite-link input::placeholder {
-    color: #ddd;
-  }
-  
-  .invite-link button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    background-color: rgba(76, 175, 80, 0.8);
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s ease-in-out;
-  }
-  
-  .invite-link button:hover {
-    background-color: rgba(76, 175, 80, 1);
-  }
-  
-  .group-name {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .members-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: center;
-    margin-bottom: 30px;
-  }
+  background-image: url('../../../assets/images/background_group.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
 
-  .members-container p{
-    font-size: small;
-  }
-  
-  .member-card {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 10px;
-    border-radius: 12px;
-    width: 50px;
-  }
-  
-  .avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .section-title {
-    text-align: center;
-    margin: 20px 0 10px;
-  }
-  
-  .recommendations {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-  }
-  
+.group-container {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  color: #000000;
+}
+
+.group-container h2 {
+  margin-bottom: 10px;
+}
+
+.group-container p,
+.group-container ul {
+  margin-bottom: 10px;
+}
+
+.group-container ul {
+  padding-left: 20px;
+}
+
+.invite-section {
+  margin-bottom: 30px;
+  text-align: center;
+  color: black;
+}
+
+.invite-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.invite-link input {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  text-align: center;
+}
+
+.invite-link button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(76, 175, 80, 0.8);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.invite-link button:hover {
+  background-color: rgba(76, 175, 80, 1);
+}
+
+.invite-link button:active {
+  transform: scale(0.95);
+  background-color: rgba(0, 123, 255, 0.8);
+}
+
+.invite-link input:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+  outline: none;
+}
+
+.copied-message {
+  color: #c8facc;
+  font-size: 14px;
+}
+
+.group-name {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.members-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.members-container p {
+  font-size: small;
+}
+
+.member-card {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  border-radius: 12px;
+  width: 50px;
+}
+
+.member-card:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.section-title {
+  text-align: center;
+  margin: 20px 0 10px;
+}
+
+.recommendations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.movie-card {
+  width: 80px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.movie-image-container {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.movie-image-container:hover {
+  transform: scale(1.05);
+}
+
+.movie-image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.movie-image-container:hover .overlay {
+  opacity: 1;
+}
+
+.view-button {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+
+.movie-title {
+  font-size: 12px;
+  margin-top: 6px;
+  color: #000;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+
+.dialog {
+  border: #000000 1px solid;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-button {
+  background-color: rgba(46, 46, 46, 0.5);
+  border: none;
+  border-radius: 8px;
+  padding: 4px 6px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 4px;
+}
+
+.remove-button:hover {
+  background-color: rgba(255, 0, 0, 0.5);
+  transform: scale(1.05);
+}
+
+.remove-button:active {
+  transform: scale(0.95);
+}
+
+.carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow-x: scroll; /* Permitir rolagem horizontal */
+  scrollbar-width: thin;
+  scroll-snap-type: x mandatory; /* Faz com que o scroll pare em cada filme */
+}
+
+.carousel-button {
+  background-color: rgba(255, 255, 255, 0.4);
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  z-index: 10;
+}
+
+.carousel-button:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.movie-cards-wrapper {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  justify-content: center;
+  overflow: hidden; /* Impede que filmes saiam da área visível */
+  scroll-snap-type: x mandatory; /* Garante que o scroll se 'trave' no próximo card */
+}
+
+.movie-card {
+  min-width: 160px;
+  margin: 0 8px;
+  transition: transform 0.3s ease;
+  scroll-snap-align: start; /* Garante que o card "grude" no início da área visível */
+
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+}
+
+.movie-image-container {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.movie-image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.movie-image-container:hover .overlay {
+  opacity: 1;
+}
+
+.view-button {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+
+.movie-title {
+  font-size: 12px;
+  margin-top: 6px;
+  color: #000;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
   .movie-card {
-    width: 70px;
-    text-align: center;
+    min-width: 140px; /* Ajuste o tamanho dos cards para telas médias */
   }
-  
-  .movie-card img {
-    border-radius: 8px;
-    width: 100%;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
+}
 
-  .dialog{
-    border: #000000 1px solid;
+@media (max-width: 992px) {
+  .movie-card {
+    min-width: 120px; /* Menor ainda em telas médias pequenas */
   }
-  
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(6px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .movie-card {
+    min-width: 100px; /* Cards ainda menores em telas pequenas */
   }
+}
+
+.movie-card {
+  min-width: 160px;
+  margin: 0 8px;
+  transition: transform 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+}
+
+
+.movie-cards-wrapper {
+  display: flex;
+  overflow: hidden;
+}
+
+.movie-card {
+  min-width: 160px;
+  margin: 0 8px;
+  transition: transform 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+}
+
+.member-avatar, .movie-image-container img {
+  max-width: 100%;
+  height: auto;
+}

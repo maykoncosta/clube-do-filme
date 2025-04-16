@@ -1,5 +1,5 @@
 // group.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { GroupService } from 'src/app/core/services/group.service';
@@ -24,6 +24,10 @@ export class GroupComponent implements OnInit {
   memberToRemove: string | any = null;
   selectedMovieId: number | any = null;
   showMovieModal = false;
+  currentMovieIndex: number = 0; // Para manter o controle do índice de filmes visíveis
+  MOVIES_PER_SCROLL = 5;
+
+  @ViewChild('movieCarousel', { static: false }) movieCarousel!: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -100,4 +104,31 @@ export class GroupComponent implements OnInit {
   closeMovieModal() {
     this.showMovieModal = false;
   }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: any): void {
+    // Verifica se o usuário rolou até o final da lista para carregar mais filmes
+    const container = this.movieCarousel.nativeElement;
+    const isAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth;
+
+    if (isAtEnd) {
+      this.loadMoreMovies();
+    }
+  }
+
+  loadMoreMovies() {
+    if (this.recommendedMovies.length < 50) {
+      this.currentMovieIndex += this.MOVIES_PER_SCROLL;
+      this.loadMockRecommendations();
+    }
+  }
+
+  scrollMovies(direction: number) {
+    if (direction === 1) {
+      this.currentMovieIndex = Math.min(this.recommendedMovies.length - this.MOVIES_PER_SCROLL, this.currentMovieIndex + this.MOVIES_PER_SCROLL);
+    } else if (direction === -1) {
+      this.currentMovieIndex = Math.max(0, this.currentMovieIndex - this.MOVIES_PER_SCROLL);
+    }
+  }
+
 }

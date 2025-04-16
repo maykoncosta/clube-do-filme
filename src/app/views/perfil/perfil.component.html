@@ -6,13 +6,9 @@
             class="avatar-img" />
         <h2>{{ userData?.username }}</h2>
     </div>
-
     <div class="form-section">
         <label for="username">Nome de usuário:</label>
         <input id="username" [(ngModel)]="newName" />
-
-        <label for="avatarSeed">Avatar:</label>
-        <input type="text" [(ngModel)]="newAvatar" placeholder="Digite uma seed ou gere aleatória" />
 
         <button (click)="generateRandomSeed()">Gerar avatar aleatório</button>
         <button (click)="updateProfile()">Salvar alterações</button>
@@ -20,13 +16,11 @@
 
     <div class="preferences-section">
         <h3>Preferências Individuais</h3>
-
         <div class="type-selector">
             <button *ngFor="let t of preferenceTypes" (click)="selectedType = t" [class.active]="selectedType === t">
                 {{ preferenceLabels[t] }}
             </button>
         </div>
-
         <div class="preference-group" *ngIf="selectedType">
             <label [for]="selectedType">Buscar {{ preferenceLabels[selectedType] }}:</label>
             <input *ngIf="selectedType !== 'genres'" [id]="selectedType" [(ngModel)]="search[selectedType]"
@@ -59,6 +53,4 @@
         </div>
         <button class="save-btn" (click)="savePreferences()">Salvar preferências</button>
     </div>
-
-
 </div>

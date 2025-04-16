@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
   isHome: boolean = false;
+  isMenuActive: boolean = false; // Controle da visibilidade do menu
 
   constructor(private router: Router) {
     this.router.events.subscribe(() => {
@@ -21,5 +22,14 @@ export class HeaderComponent {
 
   goHome() {
     this.router.navigate(['/']);
+  }
+
+  toggleMenu() {
+    this.isMenuActive = !this.isMenuActive; // Alterna a visibilidade do menu
+  }
+
+  goTo(route: string) {
+    this.router.navigate([route]);
+    this.isMenuActive = false; // Fecha o menu após a navegação
   }
 }

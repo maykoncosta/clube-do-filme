@@ -9,11 +9,13 @@
     background-position: center;
     min-height: 100vh;
     backdrop-filter: blur(4px);
+    gap: 20px;
 }
 
 .avatar-section {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    margin-top: 20px
 }
 
 .avatar-section img {
@@ -269,4 +271,9 @@ p {
     padding: 10px;
     font-style: italic;
     color: gray;
+}
+
+.profile-container > .form-section,
+.profile-container > .preferences-section {
+    margin-top: 20px;
 }

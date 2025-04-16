@@ -83,12 +83,14 @@ export class PerfilComponent implements OnInit {
   }
 
   async updateProfile() {
+    this.isLoading = true;
     const uid = this.auth.currentUser?.uid!;
     const avatarSeed = this.newAvatar || this.userData.avatarSeed;
     const username = this.newName || this.userData.username;
 
     await this.userService.updateProfile(uid, username, avatarSeed);
     this.messageService.success('Perfil atualizado com sucesso!');
+    this.isLoading = false;
   }
 
   generateRandomSeed() {

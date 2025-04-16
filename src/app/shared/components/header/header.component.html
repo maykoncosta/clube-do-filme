@@ -1,6 +1,19 @@
 <header *ngIf="!isHome" class="header">
     <button (click)="goBack()" class="back-button">
-        ← Voltar
+      ← Voltar
     </button>
     <h1 (click)="goHome()" class="header-title">Clube do Filme</h1>
-</header>
+  
+    <div class="hamburger-menu" (click)="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  
+    <div class="nav-menu" [class.active]="isMenuActive">
+      <div class="nav-item" (click)="goTo('/home')">Início</div>
+      <div class="nav-item" (click)="goTo('/perfil')">Perfil</div>
+      <div class="nav-item" (click)="goTo('/meus-grupos')">Grupos</div>
+    </div>
+  </header>
+  

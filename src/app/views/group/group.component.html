@@ -18,15 +18,34 @@
         </button>
       </div>
     </div>
-
-    <h3 class="section-title">Recomendações</h3>
-    <div class="recommendations">
-      <div (click)="openMovieModal(movie.id)" *ngFor="let movie of recommendedMovies" class="movie-card">
-        <img [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" alt="{{ movie.title }}">
-        <p>{{ movie.title }}</p>
+    <div class="invite-section">
+      <p><strong>Convide seus amigos:</strong></p>
+      <div class="invite-link">
+        <input [value]="inviteLink" readonly placeholder="Link de convite" />
+        <button (click)="copyInviteLink()">Copiar link</button>
+        <span *ngIf="copied" class="copied-message">Link copiado!</span>
       </div>
     </div>
 
+    <h3 class="section-title">Recomendações</h3>
+
+    <div class="recommendations">
+      <div class="carousel-container" #movieCarousel>
+        <button class="carousel-button prev" (click)="scrollMovies(-1)">❮</button>
+        <div class="movie-cards-wrapper">
+          <div *ngFor="let movie of recommendedMovies.slice(currentMovieIndex, currentMovieIndex + MOVIES_PER_SCROLL)" class="movie-card" (click)="openMovieModal(movie.id)">
+            <div class="movie-image-container">
+              <img [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" alt="{{ movie.title }}">
+              <div class="overlay">
+                <button class="view-button">Ver mais</button>
+              </div>
+            </div>
+            <p class="movie-title">{{ movie.title }}</p>
+          </div>
+        </div>
+        <button class="carousel-button next" (click)="scrollMovies(1)">❯</button>
+      </div>
+    </div>
   </div>
 </div>
 
